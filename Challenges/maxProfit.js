@@ -25,6 +25,35 @@ const utils = require("../utils");
 
 
 */
+function maxProfitLeetcode(prices) {
+    let minBuyPrice = prices[0] < prices[1] ? prices[0] : prices[1];
+    let maxBuyPrice = prices[0] < prices[1] ? prices[1] : prices[2];
+    let maxProfit = maxBuyPrice - minBuyPrice;
+    let tempBuyPrice = minBuyPrice;
+    // min : 1
+    // max : 2
+    // temp: 1
+    // current: 1
+    // profit: 1
+
+    for (let i = 2; i < prices.length; i++) {
+        let current = prices[i];
+        if (tempBuyPrice > current) {
+            // we have a potential new min price.
+            tempBuyPrice = current;
+        } else if (current - tempBuyPrice > maxProfit) {
+            minBuyPrice = tempBuyPrice;
+            maxBuyPrice = current;
+            maxProfit = maxBuyPrice - minBuyPrice;
+        } else if (current >= maxBuyPrice) {
+            maxBuyPrice = current;
+            minBuyPrice = Math.min(minBuyPrice, tempBuyPrice);
+            maxProfit = maxBuyPrice - minBuyPrice;
+        }
+    }
+    return Math.max(maxProfit, 0);
+}
+
 function maxProfit(stockPrices) {
     let minBuyPrice =
         stockPrices[0] < stockPrices[1] ? stockPrices[0] : stockPrices[1];

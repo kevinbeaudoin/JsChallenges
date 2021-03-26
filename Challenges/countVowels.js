@@ -10,6 +10,7 @@ const vowels = "aeiou".split("");
 const input = "This is a sample sentence";
 const expected = 8;
 
+// could have been made using a reduce...
 function countVowels(text) {
     let count = 0;
     for (let i = 0; i < text.length; i++) {

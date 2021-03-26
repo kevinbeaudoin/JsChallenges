@@ -21,7 +21,24 @@ interface Node {
 };
 */
 
-function isBinaryTree(node, minValue = -999, maxValue = 999) {
+function isBST(root, min = null, max = null) {
+    if (root === null) {
+        return true;
+    }
+
+    if (
+        (max !== null && root.data >= max) ||
+        (min !== null && root.data <= min)
+    ) {
+        return false;
+    }
+
+    return (
+        isBST(root.left, min, root.data) && isBST(root.right, root.data, max)
+    );
+}
+
+function isBinaryTree2(node, minValue = -999, maxValue = 999) {
     // A tree formed of a single node or no nodes at all is a binary tree...
     if (!node) {
         return true;
